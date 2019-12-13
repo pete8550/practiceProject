@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    const myTable = document.getElementById('myTable');
+			fetch('http://localhost:3000/users')
+				.then(res => {
+					// Check if we can connect
+					if (res.status !== 200) {
+						return console.log('Could not GET url');
+					}
+					return res.json();
+				})
+				.then(response => {
+					let users = response.data;
+					return users.map(users => {
+						// 
+						let tr = document.createElement('tr');
+						let td = document.createElement('td');
+						let td2 = document.createElement('td');
+						// Write text between the tags
+						td.innerHTML = users.firstName;
+						td2.innerHTML = users.lastName;
+						// Append the data to the row
+						tr.appendChild(td);
+						tr.appendChild(td2);
+						myTable.appendChild(tr);
+					});
+				})
+				.catch(err => {
+					console.log(err);
+				});
+    </script>
+</body>
+</html>
